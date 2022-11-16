@@ -1,0 +1,7 @@
+{
+  "name": "favoriteModList",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
