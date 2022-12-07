@@ -1,0 +1,49 @@
+.search {
+    display: flex;
+}
+
+.search-btn {
+  margin-top: 10px;
+}
+
+.mod-card {
+    display: flex;
+    align-items: center;
+    position: relative;
+    ion-card-header{
+      img {
+        width: 100px;
+        height: 100px;
+        border-radius: 10px;
+      }
+
+      .mod-search-icn {
+        width: 100px;
+        height: 100px;
+        border-radius: 10px;
+        background-position: center;
+        background-size: contain;
+        background-repeat: no-repeat;
+      }
+    }
+  
+    ion-card-content{
+      .card-header{
+        display: flex;
+        margin-bottom: 10px;
+
+        a {
+            text-decoration: none;
+        }
+  
+        ion-card-subtitle{
+          margin-left: 8px;
+          margin-top: 3px;
+        }
+      }
+    }
+    ion-buttons {
+      position: absolute;
+      right: 10px;
+    }
+  }

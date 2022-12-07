@@ -1,20 +1,124 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>
-      Blank
-    </ion-title>
+    <ion-title> Favorite Mods List </ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="addMod()" (click)="setOpen(true)">
+        <ion-icon slot="icon-only" name="add"></ion-icon>
+      </ion-button>
+      <ion-button routerLink="/search" routerDirection="forward">
+        <ion-icon slot="icon-only" name="search"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
-  </div>
+  <ion-card *ngFor="let mod of mods; index as i">
+    <div class="mod-card">
+      <ion-card-header>
+        <div
+          class="mod-search-icn"
+          style="background-image: url({{mod.icon}})"
+        ></div>
+      </ion-card-header>
+      <ion-card-content>
+        <div class="card-header">
+          <ion-card-title routerLink="/details/{{i}}">
+            {{mod.name}}
+          </ion-card-title>
+          <ion-card-subtitle>by {{mod.author}} </ion-card-subtitle>
+        </div>
+        <ion-card-subtitle>{{mod.description}}</ion-card-subtitle>
+      </ion-card-content>
+      <ion-buttons slot="end">
+        <ion-button (click)="editMod(i)">
+          <ion-icon name="pencil-outline"></ion-icon>
+        </ion-button>
+        <ion-button (click)="deleteMod(i)">
+          <ion-icon name="trash-outline"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </div>
+  </ion-card>
+  <ion-modal [isOpen]="isModalOpen" (willDismiss)="onWillDismiss($event)">
+    <ng-template>
+      <ion-header>
+        <ion-toolbar>
+          <ion-buttons slot="start">
+            <ion-button (click)="cancel()">Cancel</ion-button>
+          </ion-buttons>
+          <ion-title>{{editMode}} Mod</ion-title>
+          <ion-buttons slot="end">
+            <ion-button (click)="confirm()" [strong]="true">Confirm</ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content class="ion-padding">
+        <ion-item>
+          <ion-label position="stacked">Enter Mod Name</ion-label>
+          <ion-input
+            type="text"
+            placeholder="Name"
+            [(ngModel)]="name"
+          ></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="stacked">Enter Author</ion-label>
+          <ion-input
+            type="text"
+            placeholder="Author"
+            [(ngModel)]="author"
+          ></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="stacked">Enter Icon URL</ion-label>
+          <ion-input
+            type="text"
+            placeholder="Icon URL"
+            [(ngModel)]="icon"
+          ></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="stacked">Description</ion-label>
+          <ion-input
+            type="text"
+            placeholder="Description"
+            [(ngModel)]="description"
+          ></ion-input>
+        </ion-item>
+        <ion-list>
+          <ion-item>
+            <ion-label position="stacked">Categories</ion-label>
+            <ion-select
+              placeholder="Select all categories that apply"
+              [multiple]="true"
+              [(ngModel)]="categories"
+            >
+              <ion-select-option
+                *ngFor="let category of modCategories"
+                value="{{category}}"
+                >{{category.replace("-", " ").toUpperCase()}}</ion-select-option
+              >
+            </ion-select>
+          </ion-item>
+        </ion-list>
+        <ion-item>
+          <ion-label position="stacked">Versions</ion-label>
+          <ion-input
+            type="text"
+            placeholder="Separate versions with a comma"
+            [(ngModel)]="versions"
+          ></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="stacked">Mod Link</ion-label>
+          <ion-input
+            type="text"
+            placeholder="Mod URL"
+            [(ngModel)]="link"
+          ></ion-input>
+        </ion-item>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
 </ion-content>

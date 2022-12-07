@@ -1,0 +1,51 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button
+        routerLink="/home"
+        routerDirection="forward"
+      ></ion-back-button>
+    </ion-buttons>
+    <ion-title>Search Modrinth</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="search">
+    <ion-searchbar
+      animated="true"
+      placeholder="Search Modrinth Database"
+      ngModel
+      #modSearch
+      (change)="searchMod()"
+    ></ion-searchbar>
+    <ion-button (click)="searchMod()" class="search-btn">Search</ion-button>
+  </div>
+  <ion-card *ngFor="let mod of searchResult; let i = index">
+    <div class="mod-card">
+      <ion-card-header>
+        <div
+          class="mod-search-icn"
+          style="background-image: url({{mod.icon_url}})"
+        ></div>
+      </ion-card-header>
+      <ion-card-content>
+        <div class="card-header">
+          <a href="https://modrinth.com/mod/{{mod.slug}}"
+            ><ion-card-title> {{mod.title}} </ion-card-title></a
+          >
+          <ion-card-subtitle>by {{mod.author}} </ion-card-subtitle>
+        </div>
+        <ion-card-subtitle>{{mod.description}}</ion-card-subtitle>
+      </ion-card-content>
+      <ion-buttons slot="end">
+        <ion-button (click)="favoriteMod(i)" *ngIf="checkIfAdded(i) == false"
+          ><ion-icon name="star" color="medium"></ion-icon>
+        </ion-button>
+        <ion-button (click)="unfavoriteMod(i)" *ngIf="checkIfAdded(i) == true"
+          ><ion-icon name="star" color="primary"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </div>
+  </ion-card>
+</ion-content>

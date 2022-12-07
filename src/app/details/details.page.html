@@ -1,0 +1,27 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button
+        routerLink="/home"
+        routerDirection="forward"
+      ></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{currentMod.name}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="mod-description-content">
+    <img src="{{currentMod.icon}}" alt="" />
+    <p class="mod-description">{{currentMod.description}}</p>
+    <p class="label">Categories:</p>
+    <ul class="mod-categories" *ngFor="let category of currentMod.categories">
+      <li>{{category.replace("-", " ").toUpperCase()}}</li>
+    </ul>
+    <p class="label">Versions:</p>
+    <ul class="mod-categories" *ngFor="let version of currentMod.versions">
+      <li>{{version}}</li>
+    </ul>
+    <ion-button href="{{currentMod.link}}"> Mod Link </ion-button>
+  </div>
+</ion-content>
